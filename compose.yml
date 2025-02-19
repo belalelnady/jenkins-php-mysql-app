@@ -1,0 +1,32 @@
+services:
+  webserver:
+    build: .
+    container_name: nginx-php
+    ports:
+      - "8800:80"
+    networks:
+      - mynet
+    depends_on:
+      - mysqlDB
+
+  mysqlDB:
+    image: mysql:latest
+    container_name: mysqlDB
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: belal
+      MYSQL_PASSWORD: belal
+      MYSQL_DATABASE: views
+    networks:
+      - mynet
+    volumes:
+      - myvol1:/var/lib/mysql
+
+networks:
+  mynet:
+    driver: bridge
+volumes:
+  myvol1:
+    
