@@ -40,29 +40,22 @@ pipeline {
                 sshagent (credentials: ['u-server']) {
 
                      sh """
-                        scp -o StrictHostKeyChecking=no compose.yml belal@${REMOTE_HOST}:/home/belal/
-                        ssh -o StrictHostKeyChecking=no belal@${REMOTE_HOST} '
+                        mkdir -p ~/.ssh
+                        #Remove the key if existed
+                        ssh-keygen -R ${REMOTE_HOST} 2>/dev/null || true
+                        ssh-keyscan -H ${REMOTE_HOST} >> ~/.ssh/known_hosts
+                        chmod 600 ~/.ssh/known_hosts
+
+                        scp  compose.yml ${HOST_NAME}@${REMOTE_HOST}:/home/belal/
+                        ssh  ${HOST_NAME}@${REMOTE_HOST} '
                         cd /home/belal &&
+                        docker compose down &&
+                        docker image rm -f  ${IMAGE_NAME} || true
                         docker compose up -d '
                     """
                 }
             }
         }
     }
-    // post {
-       
-    //     success{
-    //         agent { label 'ssh-agent' }
-    //         steps {
-    //             sh 'echo success'
-    //         }
-    //     }
-    //     always {
-    //         agent { label 'ssh-agent' }
-    //         steps {
-    //         sh 'echo "build is finished"'
-    //         cleanWs()
-    //         }
-    //     }
-    // }
+
 }

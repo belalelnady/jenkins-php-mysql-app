@@ -22,11 +22,11 @@ services:
     networks:
       - mynet
     volumes:
-      - myvol1:/var/lib/mysql
+      - myvol2:/var/lib/mysql
 
 networks:
   mynet:
     driver: bridge
 volumes:
-  myvol1:
+  myvol2:
     
