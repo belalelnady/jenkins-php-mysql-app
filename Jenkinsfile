@@ -4,14 +4,14 @@ pipeline {
         IMAGE_NAME = 'belalelnady/php-mysql-views-counter:latest'
         REMOTE_HOST = '192.168.1.111'
         HOST_NAME = 'belal'
-        GIT_URL = 'https://github.com/belalelnady/jenkins-php-mysql-app'
+        
     }
     stages {
         stage('Checkout') {
             agent {label 'ssh-agent'}
             steps {
                 // cant use `checkout scm` cuz it will be executed in  every stage 
-                git url: ${GIT_URL}, branch: 'master'
+                git url: 'https://github.com/belalelnady/jenkins-php-mysql-app', branch: 'master'
               
             }
         }
