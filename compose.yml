@@ -1,9 +1,9 @@
 services:
   webserver:
-    build: .
-    container_name: nginx-php
+    image: mysql:latest
+    container_name: views-counter
     ports:
-      - "8800:80"
+      - "7799:80"
     networks:
       - mynet
     depends_on:
