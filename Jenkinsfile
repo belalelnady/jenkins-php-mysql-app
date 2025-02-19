@@ -38,21 +38,27 @@ pipeline {
             steps {
                 sshagent (credentials: ['u-server']) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no belal@192.168.1.111 '
-                        docker compose -d up  ${IMAGE_NAME}'
+                        ssh -o StrictHostKeyChecking=no belal@${REMOTE_HOST} '
+                        docker compose -d up'
                     """
                 }
             }
         }
     }
     post {
-        agent {label 'ssh-agent'}
+       
         success{
-            sh 'echo sucess'
+            agent { label 'ssh-agent' }
+            steps {
+                sh 'echo success'
+            }
         }
         always {
+            agent { label 'ssh-agent' }
+            steps {
             sh 'echo "build is finished"'
-             cleanWs()
+            cleanWs()
+            }
         }
     }
 }
