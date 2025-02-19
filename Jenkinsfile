@@ -49,20 +49,20 @@ pipeline {
             }
         }
     }
-    post {
+    // post {
        
-        success{
-            agent { label 'ssh-agent' }
-            steps {
-                sh 'echo success'
-            }
-        }
-        always {
-            agent { label 'ssh-agent' }
-            steps {
-            sh 'echo "build is finished"'
-            cleanWs()
-            }
-        }
-    }
+    //     success{
+    //         agent { label 'ssh-agent' }
+    //         steps {
+    //             sh 'echo success'
+    //         }
+    //     }
+    //     always {
+    //         agent { label 'ssh-agent' }
+    //         steps {
+    //         sh 'echo "build is finished"'
+    //         cleanWs()
+    //         }
+    //     }
+    // }
 }
