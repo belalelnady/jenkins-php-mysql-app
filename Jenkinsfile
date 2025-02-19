@@ -46,7 +46,7 @@ pipeline {
         }
     }
     post {
-        agent any
+        agent {label 'ssh-agent'}
         success{
             sh 'echo sucess'
         }
