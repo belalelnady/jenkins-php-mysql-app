@@ -3,6 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'belalelnady/php-mysql-views-counter:latest'
         REMOTE_HOST = '192.168.1.111'
+        HOST_NAME - 'belal'
     }
     stages {
         stage('Checkout') {
@@ -37,9 +38,12 @@ pipeline {
             agent {label 'ssh-agent'}
             steps {
                 sshagent (credentials: ['u-server']) {
-                    sh """
+
+                     sh """
+                        scp -o StrictHostKeyChecking=no compose.yml belal@${REMOTE_HOST}:/home/belal/
                         ssh -o StrictHostKeyChecking=no belal@${REMOTE_HOST} '
-                        docker compose -d up'
+                        cd /home/belal &&
+                        docker compose up -d '
                     """
                 }
             }
