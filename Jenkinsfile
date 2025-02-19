@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'belalelnady/php-mysql-views-counter:latest'
         REMOTE_HOST = '192.168.1.111'
-        HOST_NAME - 'belal'
+        HOST_NAME = 'belal'
     }
     stages {
         stage('Checkout') {
