@@ -1,6 +1,6 @@
 services:
   webserver:
-    image: belalelnady/php-mysql-views-counter:latest
+    image: belalelnady/php-mysql-views-counter
     container_name: views-counter
     ports:
       - "7799:80"
